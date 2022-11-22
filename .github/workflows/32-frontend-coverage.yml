@@ -6,7 +6,7 @@ on:
     paths: [frontend/**]
   push:
     branches: [ main ]
-    paths: [frontend/**]
+    paths: ['frontend/**']
 
 jobs:
   build:

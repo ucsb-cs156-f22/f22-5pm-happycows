@@ -742,4 +742,4 @@ public class CommonsControllerTests extends ControllerTestCase {
     assertEquals(actualCommonsPlus, expectedCommonsPlus);
   }
 
-}
+}//test
