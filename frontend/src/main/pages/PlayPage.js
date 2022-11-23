@@ -95,6 +95,12 @@ export default function PlayPage() {
     toast(`Cow sold!`);
   }
 
+
+  const onFailureSell = () => {
+    toast(`You can't sell a cow because you don't have any cows!`);
+  }
+
+
   // Stryker disable all 
   const objectToAxiosParamsSell = (newUserCommons) => ({
     url: "/api/usercommons/sell",
@@ -110,7 +116,8 @@ export default function PlayPage() {
   // Stryker disable all 
   const mutationsell = useBackendMutation(
     objectToAxiosParamsSell,
-    { onSuccess: onSuccessSell },
+    { onSuccess: onSuccessSell,
+      onError: onFailureSell },
     [`/api/usercommons/forcurrentuser?commonsId=${commonsId}`]
   );
   // Stryker enable all 

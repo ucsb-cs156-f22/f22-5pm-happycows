@@ -112,6 +112,9 @@ public class UserCommonsController extends ApiController {
         if(userCommons.getNumOfCows() >= 1 ){
           userCommons.setTotalWealth(userCommons.getTotalWealth() + commons.getCowPrice());
           userCommons.setNumOfCows(userCommons.getNumOfCows() - 1);
+        } else {
+          String body = mapper.writeValueAsString(userCommons);
+          return ResponseEntity.badRequest().body(body);
         }
         userCommonsRepository.save(userCommons);
 
