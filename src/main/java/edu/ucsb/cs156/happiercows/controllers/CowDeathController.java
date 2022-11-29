@@ -42,6 +42,7 @@ import edu.ucsb.cs156.happiercows.entities.UserCommons;
 import edu.ucsb.cs156.happiercows.errors.EntityNotFoundException;
 import edu.ucsb.cs156.happiercows.models.CreateCommonsParams;
 import edu.ucsb.cs156.happiercows.repositories.CommonsRepository;
+import edu.ucsb.cs156.happiercows.repositories.CowDeathRepository;
 import edu.ucsb.cs156.happiercows.repositories.UserCommonsRepository;
 import edu.ucsb.cs156.happiercows.controllers.ApiController;
 
@@ -51,5 +52,29 @@ import edu.ucsb.cs156.happiercows.controllers.ApiController;
 @RestController
 public class CowDeathController extends ApiController {
 	
+	@Autowired
+	private CowDeathRepository cowDeathRepository;
+
+	@Autowired
+	ObjectMapper mapper;
+
+	@ApiOperation(value = "Create a new CowDeath entity")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PostMapping("")
+	public ResponseEntity<String> createCowDeath(
+		@ApiParam("id") @RequestParam long id,
+		@ApiParam("commons_id") @RequestParam long commonsId,
+		@ApiParam("user_id") @RequestParam long userId,
+		@ApiParam("zonedDateTime") @RequestParam LocalDateTime zonedDateTime,
+		@ApiParam("cowsKilled") @RequestParam Integer cowsKilled,
+		@ApiParam("avgHealth") @RequestParam double avgHealth) throws JsonProcessingException {
+		
+		CowDeath createdCowDeath = new CowDeath(id, commonsId, userId, zonedDateTime, cowsKilled, avgHealth);
+		CowDeath savedCowDeath = cowDeathRepository.save(createdCowDeath);
+		String body = mapper.writeValueAsString(savedCowDeath);
+		return ResponseEntity.ok().body(body);
+	}
+
+
 	
 }
