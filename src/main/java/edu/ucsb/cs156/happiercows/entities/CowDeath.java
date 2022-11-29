@@ -14,7 +14,7 @@ import lombok.AccessLevel;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor //(access = AccessLevel.PROTECTED)
 @Builder
 @Entity(name = "cowdeath")
 public class CowDeath {

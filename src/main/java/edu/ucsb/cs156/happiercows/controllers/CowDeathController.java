@@ -62,14 +62,19 @@ public class CowDeathController extends ApiController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("")
 	public ResponseEntity<String> createCowDeath(
-		@ApiParam("id") @RequestParam long id,
+		//@ApiParam("id") @RequestParam long id,
 		@ApiParam("commons_id") @RequestParam long commonsId,
 		@ApiParam("user_id") @RequestParam long userId,
 		@ApiParam("zonedDateTime") @RequestParam("zonedDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime zonedDateTime,
 		@ApiParam("cowsKilled") @RequestParam Integer cowsKilled,
 		@ApiParam("avgHealth") @RequestParam double avgHealth) throws JsonProcessingException {
 		
-		CowDeath createdCowDeath = new CowDeath(id, commonsId, userId, zonedDateTime, cowsKilled, avgHealth);
+		CowDeath createdCowDeath = new CowDeath();
+		createdCowDeath.setCommonsId(commonsId);
+		createdCowDeath.setUserId(userId);
+		createdCowDeath.setZonedDateTime(zonedDateTime);
+		createdCowDeath.setCowsKilled(cowsKilled);
+		createdCowDeath.setAvgHealth(avgHealth);
 		CowDeath savedCowDeath = cowDeathRepository.save(createdCowDeath);
 		String body = mapper.writeValueAsString(savedCowDeath);
 		return ResponseEntity.ok().body(body);
