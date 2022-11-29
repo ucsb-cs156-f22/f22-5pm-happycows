@@ -65,7 +65,7 @@ public class CowDeathController extends ApiController {
 		@ApiParam("id") @RequestParam long id,
 		@ApiParam("commons_id") @RequestParam long commonsId,
 		@ApiParam("user_id") @RequestParam long userId,
-		@ApiParam("zonedDateTime") @RequestParam LocalDateTime zonedDateTime,
+		@ApiParam("zonedDateTime") @RequestParam("zonedDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime zonedDateTime,
 		@ApiParam("cowsKilled") @RequestParam Integer cowsKilled,
 		@ApiParam("avgHealth") @RequestParam double avgHealth) throws JsonProcessingException {
 		
