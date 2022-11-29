@@ -75,6 +75,20 @@ public class CowDeathController extends ApiController {
 		return ResponseEntity.ok().body(body);
 	}
 
+	@ApiOperation(value = "List cow deaths for a given commons")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/bycommons")
+	public ResponseEntity<String> listCowDeaths(
+		@ApiParam("commons_id") @RequestParam Long commonsId) throws JsonProcessingException {
+		
+		Iterable<CowDeath> cowDeathIter = cowDeathRepository.findAllByCommonsId(commonsId);
+		
+		ArrayList<CowDeath> cowDeathList = new ArrayList<CowDeath>();
+		cowDeathIter.forEach(cowDeathList::add);
+		
+		String body = mapper.writeValueAsString(cowDeathList);
+		return ResponseEntity.ok().body(body);
 
+	}
 	
 }
