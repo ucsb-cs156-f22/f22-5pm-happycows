@@ -8,5 +8,5 @@ import edu.ucsb.cs156.happiercows.entities.CowDeath;
 @Repository
 public interface CowDeathRepository extends CrudRepository<CowDeath, Long> {
     Iterable<CowDeath> findAllByCommonsId(Long commonsId);
-	Iterable<CowDeath> findAllByCommonsIdAndUserId(Long commonsId, Long userId);
+    Iterable<CowDeath> findAllByCommonsIdAndUserId(Long commonsId, Long userId);
 }
