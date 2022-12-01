@@ -40,7 +40,7 @@ public class CowDeathController extends ApiController {
 
     @ApiOperation(value = "Create a new CowDeath entity")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("")
+    @PostMapping(value = "", produces = "application/json")
     public ResponseEntity<String> createCowDeath(
         @ApiParam("commons_id") @RequestParam long commonsId,
         @ApiParam("user_id") @RequestParam long userId,
@@ -65,8 +65,8 @@ public class CowDeathController extends ApiController {
     @GetMapping("/bycommons")
     public ResponseEntity<String> listCommonsCowDeaths(
         @ApiParam("commons_id") @RequestParam Long commonsId) throws JsonProcessingException {
-        
-        Iterable<CowDeath> cowDeathIter = cowDeathRepository.findAllByCommonsId(commonsId);
+
+		Iterable<CowDeath> cowDeathIter = cowDeathRepository.findAllByCommonsId(commonsId);
         
         ArrayList<CowDeath> cowDeathList = new ArrayList<CowDeath>();
         cowDeathIter.forEach(cowDeathList::add);
