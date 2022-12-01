@@ -43,15 +43,19 @@ public class MilkTheCowsJob implements JobContextConsumer {
             Iterable<Commons> allCommons = commonsRepository.findAll();
             for (Commons commons : allCommons) {
                 Iterable<UserCommons> allUserCommons = userCommonsRepository.findByCommonsId(commons.getId());
-                long milkPrice = commons.getMilkPrice();
-                
+                double commonsMilkPrice = commons.getMilkPrice();
+
                 for (UserCommons userCommons: allUserCommons) {
                     long userId = userCommons.getUserId();
+                    int userNumCows = userCommons.getNumOfCows();
+                    double userCowHealth = userCommons.getCowHealth();
+
+                    double currentWealth = userCommons.getTotalWealth();
+
+                    double newWealth = currentWealth + commonsMilkPrice*userNumCows*userCowHealth;
+                    userCommons.setTotalWealth(newWealth);
                 }
             }
-            // for each common
-            //     for each player in common
-            //         update wealth: add milkPrice*(cows*cowHealth) to player's wealth4
         }
     }
 }
