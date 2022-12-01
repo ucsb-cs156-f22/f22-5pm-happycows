@@ -71,7 +71,7 @@ public class CowDeathController extends ApiController {
         ArrayList<CowDeath> cowDeathList = new ArrayList<CowDeath>();
         cowDeathIter.forEach(cowDeathList::add);
         
-        String body = mapper.writeValueAsString(cowDeathIter);
+        String body = mapper.writeValueAsString(cowDeathList);
         return ResponseEntity.ok().body(body);
 
     }
@@ -88,7 +88,7 @@ public class CowDeathController extends ApiController {
         ArrayList<CowDeath> cowDeathList = new ArrayList<CowDeath>();
         cowDeathIter.forEach(cowDeathList::add);
         
-        String body = mapper.writeValueAsString(cowDeathIter);
+        String body = mapper.writeValueAsString(cowDeathList);
         return ResponseEntity.ok().body(body);
 
     }
