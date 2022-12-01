@@ -48,6 +48,8 @@ public class CowDeathController extends ApiController {
         @ApiParam("cowsKilled") @RequestParam Integer cowsKilled,
         @ApiParam("avgHealth") @RequestParam double avgHealth) throws JsonProcessingException {
         
+        log.info("createCowDeath()...");
+
         CowDeath createdCowDeath = new CowDeath();
         createdCowDeath.setCommonsId(commonsId);
         createdCowDeath.setUserId(userId);
@@ -65,8 +67,10 @@ public class CowDeathController extends ApiController {
     @GetMapping("/bycommons")
     public ResponseEntity<String> listCommonsCowDeaths(
         @ApiParam("commons_id") @RequestParam Long commonsId) throws JsonProcessingException {
+        
+        log.info("listCommonsCowDeaths()...");
 
-		Iterable<CowDeath> cowDeathIter = cowDeathRepository.findAllByCommonsId(commonsId);
+        Iterable<CowDeath> cowDeathIter = cowDeathRepository.findAllByCommonsId(commonsId);
         
         ArrayList<CowDeath> cowDeathList = new ArrayList<CowDeath>();
         cowDeathIter.forEach(cowDeathList::add);
@@ -83,6 +87,8 @@ public class CowDeathController extends ApiController {
         @ApiParam("commons_id") @RequestParam Long commonsId,
         @ApiParam("user_id") @RequestParam Long userId) throws JsonProcessingException {
         
+        log.info("listUserCommonsCowDeaths()...");
+
         Iterable<CowDeath> cowDeathIter = cowDeathRepository.findAllByCommonsIdAndUserId(commonsId, userId);
         
         ArrayList<CowDeath> cowDeathList = new ArrayList<CowDeath>();
