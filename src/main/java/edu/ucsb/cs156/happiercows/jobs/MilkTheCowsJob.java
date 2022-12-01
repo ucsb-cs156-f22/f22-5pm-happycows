@@ -57,5 +57,6 @@ public class MilkTheCowsJob implements JobContextConsumer {
                 }
             }
         }
+        // ctx.log("It works!");
     }
 }
