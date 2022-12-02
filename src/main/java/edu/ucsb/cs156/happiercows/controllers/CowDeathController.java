@@ -23,8 +23,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.ucsb.cs156.happiercows.errors.EntityNotFoundException;
+
+import edu.ucsb.cs156.happiercows.entities.Commons;
+import edu.ucsb.cs156.happiercows.entities.UserCommons;
 import edu.ucsb.cs156.happiercows.entities.CowDeath;
+import edu.ucsb.cs156.happiercows.repositories.CommonsRepository;
+import edu.ucsb.cs156.happiercows.repositories.UserCommonsRepository;
 import edu.ucsb.cs156.happiercows.repositories.CowDeathRepository;
+
 
 @Slf4j
 @Api(description = "Cow Death")
@@ -34,6 +41,12 @@ public class CowDeathController extends ApiController {
     
     @Autowired
     private CowDeathRepository cowDeathRepository;
+
+	@Autowired
+	private CommonsRepository commonsRepository;
+
+	@Autowired
+	private UserCommonsRepository userCommonsRepository;
 
     @Autowired
     ObjectMapper mapper;
@@ -49,6 +62,9 @@ public class CowDeathController extends ApiController {
         @ApiParam("avgHealth") @RequestParam double avgHealth) throws JsonProcessingException {
         
         log.info("createCowDeath()...");
+
+		userCommonsRepository.findByCommonsIdAndUserId(commonsId, userId)
+			.orElseThrow(() -> new EntityNotFoundException(UserCommons.class, "commonsId", commonsId, "userId", userId));
 
         CowDeath createdCowDeath = new CowDeath();
         createdCowDeath.setCommonsId(commonsId);
@@ -69,6 +85,10 @@ public class CowDeathController extends ApiController {
         @ApiParam("commons_id") @RequestParam Long commonsId) throws JsonProcessingException {
         
         log.info("listCommonsCowDeaths()...");
+		
+		commonsRepository.findById(commonsId)
+			.orElseThrow(
+				() -> new EntityNotFoundException(Commons.class, commonsId));
 
         Iterable<CowDeath> cowDeathIter = cowDeathRepository.findAllByCommonsId(commonsId);
         
@@ -88,6 +108,10 @@ public class CowDeathController extends ApiController {
         @ApiParam("user_id") @RequestParam Long userId) throws JsonProcessingException {
         
         log.info("listUserCommonsCowDeaths()...");
+		
+		userCommonsRepository.findByCommonsIdAndUserId(commonsId, userId)
+			.orElseThrow(
+				() -> new EntityNotFoundException(UserCommons.class, "commonsId", commonsId, "userId", userId));
 
         Iterable<CowDeath> cowDeathIter = cowDeathRepository.findAllByCommonsIdAndUserId(commonsId, userId);
         
