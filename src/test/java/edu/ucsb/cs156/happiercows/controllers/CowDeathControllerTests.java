@@ -155,7 +155,7 @@ public class CowDeathControllerTests extends ControllerTestCase {
     @Test
     public void getCommonsTest() throws Exception {
         LocalDateTime someTime = LocalDateTime.parse("2022-03-05T15:50:10");
-        
+
         List<CowDeath> expectedCowDeaths = new ArrayList<CowDeath>();
 
         CowDeath cowDeath1 = CowDeath.builder()
@@ -173,7 +173,6 @@ public class CowDeathControllerTests extends ControllerTestCase {
             .milkPrice(10)
             .startingBalance(1000)
             .startingDate(someTime)
-            .endingDate(someTime)
             .degradationRate(1)
             .showLeaderboard(true)
             .build();
