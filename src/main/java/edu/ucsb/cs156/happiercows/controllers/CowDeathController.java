@@ -42,11 +42,11 @@ public class CowDeathController extends ApiController {
     @Autowired
     private CowDeathRepository cowDeathRepository;
 
-	@Autowired
-	private CommonsRepository commonsRepository;
+    @Autowired
+    private CommonsRepository commonsRepository;
 
-	@Autowired
-	private UserCommonsRepository userCommonsRepository;
+    @Autowired
+    private UserCommonsRepository userCommonsRepository;
 
     @Autowired
     ObjectMapper mapper;
@@ -63,8 +63,8 @@ public class CowDeathController extends ApiController {
         
         log.info("createCowDeath()...");
 
-		userCommonsRepository.findByCommonsIdAndUserId(commonsId, userId)
-			.orElseThrow(() -> new EntityNotFoundException(UserCommons.class, "commonsId", commonsId, "userId", userId));
+        userCommonsRepository.findByCommonsIdAndUserId(commonsId, userId)
+            .orElseThrow(() -> new EntityNotFoundException(UserCommons.class, "commonsId", commonsId, "userId", userId));
 
         CowDeath createdCowDeath = new CowDeath();
         createdCowDeath.setCommonsId(commonsId);
@@ -85,10 +85,10 @@ public class CowDeathController extends ApiController {
         @ApiParam("commons_id") @RequestParam Long commonsId) throws JsonProcessingException {
         
         log.info("listCommonsCowDeaths()...");
-		
-		commonsRepository.findById(commonsId)
-			.orElseThrow(
-				() -> new EntityNotFoundException(Commons.class, commonsId));
+        
+        commonsRepository.findById(commonsId)
+            .orElseThrow(
+                () -> new EntityNotFoundException(Commons.class, commonsId));
 
         Iterable<CowDeath> cowDeathIter = cowDeathRepository.findAllByCommonsId(commonsId);
         
@@ -108,10 +108,10 @@ public class CowDeathController extends ApiController {
         @ApiParam("user_id") @RequestParam Long userId) throws JsonProcessingException {
         
         log.info("listUserCommonsCowDeaths()...");
-		
-		userCommonsRepository.findByCommonsIdAndUserId(commonsId, userId)
-			.orElseThrow(
-				() -> new EntityNotFoundException(UserCommons.class, "commonsId", commonsId, "userId", userId));
+        
+        userCommonsRepository.findByCommonsIdAndUserId(commonsId, userId)
+            .orElseThrow(
+                () -> new EntityNotFoundException(UserCommons.class, "commonsId", commonsId, "userId", userId));
 
         Iterable<CowDeath> cowDeathIter = cowDeathRepository.findAllByCommonsIdAndUserId(commonsId, userId);
         

@@ -47,14 +47,14 @@ public class CowDeathControllerTests extends ControllerTestCase {
     @MockBean
     CowDeathRepository cowDeathRepository;
 
-	@MockBean
-	UserRepository userRepository;
+    @MockBean
+    UserRepository userRepository;
 
-	@MockBean
-	CommonsRepository commonsRepository;
+    @MockBean
+    CommonsRepository commonsRepository;
 
-	@MockBean
-	UserCommonsRepository userCommonsRepository;
+    @MockBean
+    UserCommonsRepository userCommonsRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -79,16 +79,16 @@ public class CowDeathControllerTests extends ControllerTestCase {
             .cowsKilled(10)
             .avgHealth(50)
             .build();
-		
-		UserCommons userCommons1 = UserCommons.builder()
-			.commonsId(1)
-			.userId(1)
-			.numOfCows(100)
-			.totalWealth(10000)
-			.username("user")
-			.build();
+        
+        UserCommons userCommons1 = UserCommons.builder()
+            .commonsId(1)
+            .userId(1)
+            .numOfCows(100)
+            .totalWealth(10000)
+            .username("user")
+            .build();
 
-		when(userCommonsRepository.findByCommonsIdAndUserId(1L, 1L)).thenReturn(Optional.of(userCommons1));
+        when(userCommonsRepository.findByCommonsIdAndUserId(1L, 1L)).thenReturn(Optional.of(userCommons1));
 
         String requestBody = objectMapper.writeValueAsString(parameters);
         String expectedResponse = objectMapper.writeValueAsString(cowDeath);
@@ -110,7 +110,7 @@ public class CowDeathControllerTests extends ControllerTestCase {
         assertEquals(expectedResponse, actualResponse);
     }
 
-	@WithMockUser(roles = { "ADMIN" })
+    @WithMockUser(roles = { "ADMIN" })
     @Test
     public void createCowDeathTest_invalid() throws Exception {
         LocalDateTime someTime = LocalDateTime.parse("2022-03-05T15:50:10");
@@ -130,7 +130,7 @@ public class CowDeathControllerTests extends ControllerTestCase {
             .cowsKilled(10)
             .avgHealth(50)
             .build();
-		
+        
         String requestBody = objectMapper.writeValueAsString(parameters);
 
         when(cowDeathRepository.save(cowDeath))
@@ -167,18 +167,18 @@ public class CowDeathControllerTests extends ControllerTestCase {
             .avgHealth(50)
             .build();
 
-		Commons commons1 = Commons.builder()
-			.name("Commons1")
-			.cowPrice(100)
-			.milkPrice(10)
-			.startingBalance(1000)
-			.startingDate(someTime)
-			.endingDate(someTime)
-			.degradationRate(1)
-			.showLeaderboard(true)
-			.build();
+        Commons commons1 = Commons.builder()
+            .name("Commons1")
+            .cowPrice(100)
+            .milkPrice(10)
+            .startingBalance(1000)
+            .startingDate(someTime)
+            .endingDate(someTime)
+            .degradationRate(1)
+            .showLeaderboard(true)
+            .build();
 
-		when(commonsRepository.findById(1L)).thenReturn(Optional.of(commons1));
+        when(commonsRepository.findById(1L)).thenReturn(Optional.of(commons1));
 
         expectedCowDeaths.add(cowDeath1);
         when(cowDeathRepository.findAllByCommonsId(1L)).thenReturn(expectedCowDeaths);
@@ -192,7 +192,7 @@ public class CowDeathControllerTests extends ControllerTestCase {
         assertEquals(actualCowDeath, expectedCowDeaths);
     }
 
-	@WithMockUser(roles = { "ADMIN" })
+    @WithMockUser(roles = { "ADMIN" })
     @Test
     public void getCommonsTest_invalid() throws Exception {
         
@@ -204,7 +204,7 @@ public class CowDeathControllerTests extends ControllerTestCase {
 
         verify(commonsRepository, times(1)).findById(1L);
 
-		Map<String, Object> json = responseToJson(response);
+        Map<String, Object> json = responseToJson(response);
         assertEquals("EntityNotFoundException", json.get("type"));
         assertEquals("Commons with id 1 not found", json.get("message"));
     }
@@ -225,15 +225,15 @@ public class CowDeathControllerTests extends ControllerTestCase {
             .avgHealth(50)
             .build();
 
-		UserCommons userCommons1 = UserCommons.builder()
-			.commonsId(1)
-			.userId(1)
-			.numOfCows(100)
-			.totalWealth(10000)
-			.username("user")
-			.build();
+        UserCommons userCommons1 = UserCommons.builder()
+            .commonsId(1)
+            .userId(1)
+            .numOfCows(100)
+            .totalWealth(10000)
+            .username("user")
+            .build();
 
-		when(userCommonsRepository.findByCommonsIdAndUserId(1L, 1L)).thenReturn(Optional.of(userCommons1));
+        when(userCommonsRepository.findByCommonsIdAndUserId(1L, 1L)).thenReturn(Optional.of(userCommons1));
 
         expectedCowDeaths.add(cowDeath1);
         when(cowDeathRepository.findAllByCommonsIdAndUserId(1L, 1L)).thenReturn(expectedCowDeaths);
@@ -247,7 +247,7 @@ public class CowDeathControllerTests extends ControllerTestCase {
         assertEquals(actualCowDeath, expectedCowDeaths);
     }
 
-	@WithMockUser(roles = { "USER" })
+    @WithMockUser(roles = { "USER" })
     @Test
     public void getUserCommonsTest_invalid() throws Exception {
         
@@ -259,7 +259,7 @@ public class CowDeathControllerTests extends ControllerTestCase {
 
         verify(userCommonsRepository, times(1)).findByCommonsIdAndUserId(1L, 1L);
 
-		Map<String, Object> json = responseToJson(response);
+        Map<String, Object> json = responseToJson(response);
         assertEquals("EntityNotFoundException", json.get("type"));
         assertEquals("UserCommons with commonsId 1 and userId 1 not found", json.get("message"));
     }
