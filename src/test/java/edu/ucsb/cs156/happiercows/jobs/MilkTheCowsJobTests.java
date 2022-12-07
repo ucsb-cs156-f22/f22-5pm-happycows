@@ -23,9 +23,7 @@ public class MilkTheCowsJobTests {
 
         // Assert
 
-        String expected = "Starting to milk the cows\n" +
-                "This is where the code to milk the cows will go.\n" +
-                "Cows have been milked!";
+        String expected = null;
 
         assertEquals(expected, jobStarted.getLog());
 
