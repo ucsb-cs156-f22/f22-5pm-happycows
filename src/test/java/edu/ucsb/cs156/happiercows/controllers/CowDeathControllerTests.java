@@ -67,7 +67,6 @@ public class CowDeathControllerTests extends ControllerTestCase {
         CowDeath cowDeath = CowDeath.builder()
             .commonsId(1)
             .userId(1)
-            .zonedDateTime(someTime)
             .cowsKilled(10)
             .avgHealth(50)
             .build();
@@ -75,7 +74,6 @@ public class CowDeathControllerTests extends ControllerTestCase {
         CreateCowDeathParams parameters = CreateCowDeathParams.builder()
             .commonsId(1)
             .userId(1)
-            .zonedDateTime(someTime)
             .cowsKilled(10)
             .avgHealth(50)
             .build();
@@ -97,7 +95,7 @@ public class CowDeathControllerTests extends ControllerTestCase {
             .thenReturn(cowDeath);
 
         MvcResult response = mockMvc
-            .perform(post("/api/cowdeath?commonsId=1&userId=1&zonedDateTime=2022-03-05T15:50:10&cowsKilled=10&avgHealth=50").with(csrf())
+            .perform(post("/api/cowdeath?commonsId=1&userId=1&cowsKilled=10&avgHealth=50").with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("utf-8")
                 .content(requestBody))
@@ -118,7 +116,6 @@ public class CowDeathControllerTests extends ControllerTestCase {
         CowDeath cowDeath = CowDeath.builder()
             .commonsId(1)
             .userId(1)
-            .zonedDateTime(someTime)
             .cowsKilled(10)
             .avgHealth(50)
             .build();
@@ -126,7 +123,6 @@ public class CowDeathControllerTests extends ControllerTestCase {
         CreateCowDeathParams parameters = CreateCowDeathParams.builder()
             .commonsId(1)
             .userId(1)
-            .zonedDateTime(someTime)
             .cowsKilled(10)
             .avgHealth(50)
             .build();
@@ -137,7 +133,7 @@ public class CowDeathControllerTests extends ControllerTestCase {
             .thenReturn(cowDeath);
 
         MvcResult response = mockMvc
-            .perform(post("/api/cowdeath?commonsId=1&userId=1&zonedDateTime=2022-03-05T15:50:10&cowsKilled=10&avgHealth=50").with(csrf())
+            .perform(post("/api/cowdeath?commonsId=1&userId=1&cowsKilled=10&avgHealth=50").with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("utf-8")
                 .content(requestBody))
@@ -162,7 +158,6 @@ public class CowDeathControllerTests extends ControllerTestCase {
             .id(1)
             .commonsId(1)
             .userId(1)
-            .zonedDateTime(someTime)
             .cowsKilled(10)
             .avgHealth(50)
             .build();
@@ -219,7 +214,6 @@ public class CowDeathControllerTests extends ControllerTestCase {
             .id(1)
             .commonsId(1)
             .userId(1)
-            .zonedDateTime(someTime)
             .cowsKilled(10)
             .avgHealth(50)
             .build();

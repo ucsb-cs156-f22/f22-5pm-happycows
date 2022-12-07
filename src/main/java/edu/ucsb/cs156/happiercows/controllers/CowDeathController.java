@@ -57,7 +57,6 @@ public class CowDeathController extends ApiController {
     public ResponseEntity<String> createCowDeath(
         @ApiParam("commons_id") @RequestParam long commonsId,
         @ApiParam("user_id") @RequestParam long userId,
-        @ApiParam("zonedDateTime") @RequestParam("zonedDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime zonedDateTime,
         @ApiParam("cowsKilled") @RequestParam Integer cowsKilled,
         @ApiParam("avgHealth") @RequestParam double avgHealth) throws JsonProcessingException {
         
@@ -69,7 +68,6 @@ public class CowDeathController extends ApiController {
         CowDeath createdCowDeath = new CowDeath();
         createdCowDeath.setCommonsId(commonsId);
         createdCowDeath.setUserId(userId);
-        createdCowDeath.setZonedDateTime(zonedDateTime);
         createdCowDeath.setCowsKilled(cowsKilled);
         createdCowDeath.setAvgHealth(avgHealth);
         
