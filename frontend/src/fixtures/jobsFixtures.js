@@ -72,6 +72,29 @@ const jobsFixtures = {
       "fail": false,
       "sleepMs": 1000
     },
+    threeUpdates: [
+      {
+        "id": 1,
+        "createdAt": "2022-11-13T19:49:58.097465-08:00",
+        "updatedAt": "2022-11-13T19:49:59.203879-08:00",
+        "status": "complete",
+        "log": "Updating cow health\nCow health has been updated!"
+      },
+      {
+        "id": 2,
+        "createdAt": "2022-11-13T19:49:58.097465-08:00",
+        "updatedAt": "2022-11-13T19:49:59.203879-08:00",
+        "status": "running",
+        "log": "Updating cow health"
+      },
+      {
+        "id":3,
+        "createdAt": "2022-11-13T19:49:58.097465-08:00",
+        "updatedAt": "2022-11-13T19:49:59.203879-08:00",
+        "status": "error",
+        "log": "Error updating cow health"
+      }
+    ],
 };
 
 export default jobsFixtures;
